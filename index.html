@@ -71,14 +71,6 @@
   .float-card .t b { font-family: var(--serif); font-size: 1.1rem; display: block; }
   .float-card .t span { color: var(--muted); font-size: .86rem; }
 
-  .features { padding: 24px 0 48px; }
-  .features .row { display: grid; gap: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-  .feature { display: flex; gap: 14px; align-items: flex-start; padding: 22px 0; }
-  .feature + .feature { border-top: 1px solid var(--line); }
-  .feature .ic { color: var(--green); flex: none; padding-top: 3px; }
-  .feature .ic svg { width: 22px; height: 22px; }
-  .feature h3 { font-size: 1.25rem; margin-bottom: 2px; }
-  .feature p { margin: 0; color: var(--muted); font-size: .93rem; }
 
   section.block { padding: 64px 0; }
   .block-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px; margin-bottom: 32px; }
@@ -215,15 +207,10 @@
     .hero .grid { grid-template-columns: 1.05fr 1fr; align-items: center; gap: 56px; }
     .art { min-height: 460px; }
     section.block { padding: 104px 0; }
-    .features .row { border-bottom: 1px solid var(--line); }
-    .feature { padding: 26px 28px; }
-    .feature:first-child { padding-left: 0; }
-    .feature + .feature { border-top: 0; border-left: 1px solid var(--line); }
     .hits { grid-template-columns: repeat(3, 1fr); }
     .hit .ph { aspect-ratio: 4 / 5; }
     .menu-list { grid-template-columns: 1fr 1fr; }
     .bar { display: none !important; }
-    .features .row { grid-template-columns: repeat(3, 1fr); }
     .drawer { left: auto; top: 0; bottom: 0; width: 440px; max-height: none; border-radius: 0; transform: translateX(105%); padding-top: 26px; }
     footer.site { padding-bottom: 40px; }
   }
@@ -265,7 +252,7 @@
       <div>
         <div class="eyebrow">Халяль · мангал на углях · хычины</div>
         <h1>Мясо на углях <em>и&nbsp;горячие хычины</em></h1>
-        <p class="lead">Готовим после заказа и привозим по Ставрополю. Или забирайте сами — пр. Черняховского, 1А.</p>
+        <p class="lead">Доставка по Ставрополю и самовывоз — пр. Черняховского, 1А.</p>
         <div class="cta">
           <a class="btn btn-primary" href="#menu">Открыть меню</a>
           <a class="btn btn-ghost" href="tel:+78652454600"><svg><use href="#i-phone"/></svg>45-46-00</a>
@@ -278,7 +265,7 @@
       <div class="art">
         <img class="ph" src="assets/p06_koreika.jpg" width="576" height="576" alt="Шашлык из бараньих рёбер и корейки на углях">
         <div class="float-card">
-          <div class="t"><b>Шашлык из бараньих рёбер</b><span>200 г · на углях после заказа</span></div>
+          <div class="t"><b>Шашлык из бараньих рёбер</b><span>200 г</span></div>
           <div class="price">700 ₽</div>
           <div class="act" data-ctl="Шашлык из бараньих рёбер"></div>
         </div>
@@ -286,13 +273,6 @@
     </div>
   </section>
 
-  <section class="features">
-    <div class="container row">
-      <div class="feature"><div class="ic"><svg><use href="#i-leaf"/></svg></div><div><h3>Халяль</h3><p>Формулировку согласуем с вами.</p></div></div>
-      <div class="feature"><div class="ic"><svg><use href="#i-fire"/></svg></div><div><h3>На углях после заказа</h3><p>Шашлык, люля и овощи готовим на мангале, а не разогреваем.</p></div></div>
-      <div class="feature"><div class="ic"><svg><use href="#i-moto"/></svg></div><div><h3>Доставка и самовывоз</h3><p>Соберите заказ на сайте — администратор перезвонит и подтвердит.</p></div></div>
-    </div>
-  </section>
 
   <section class="block">
     <div class="container">
@@ -390,7 +370,7 @@
 // Меню — по фото меню, присланному кафе 02.11.2026 (кафе подтвердило актуальность цен).
 // 4-й элемент true — цена плохо читалась на фото: показываем «уточним», сверить на показе.
 const MENU = [
-  { id: "mangal", cat: "Мангал", note: "готовим на углях после заказа", items: [
+  { id: "mangal", cat: "Мангал", note: "", items: [
     ["Шашлык из бараньих рёбер", "200 г", 700], ["Шашлык из бараньей корейки", "200 г", 1000], ["Шашлык ики-бир", "200 г · баранина и курдюк", 700],
     ["Шашлык из телятины", "200 г", 1000], ["Куриные крылышки", "200 г", 400], ["Куриное филе", "200 г", 500],
     ["Люля-кебаб из говядины", "170 г", 420], ["Люля-кебаб из курицы", "170 г", 350], ["Люля-кебаб из баранины", "170 г", 450],
@@ -436,7 +416,7 @@ const THUMB = { "Шашлык из бараньих рёбер": "assets/p06_thu
 const HITS = [
   ["Первые блюда", "Харчо из баранины", "400 г, суп из баранины"],
   ["Вторые блюда", "Долма с соусом", "1 шт. · виноградные листья с начинкой, с соусом"],
-  ["Мангал", "Картофель с курдюком", "200 г, на углях после заказа"],
+  ["Мангал", "Картофель с курдюком", "200 г"],
 ];
 
 const price = new Map(), tbd = new Set(), cart = new Map();
