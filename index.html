@@ -1,0 +1,718 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#faf7f0">
+<title>Dolma — мясо на углях и хычины в Ставрополе (демо)</title>
+<style>
+  :root {
+    --bg: #faf7f0; --paper: #ffffff; --tint: #f1eee4; --olive-soft: #e9efe1; --line: #e6e0d2;
+    --text: #2f312b; --muted: #6d6a60; --green: #2f5a2a; --green-2: #3f7536; --brass: #a8642b; --brass-soft: #f6e9dc;
+    --serif: "Palatino Linotype", "Book Antiqua", Palatino, "Iowan Old Style", Georgia, serif;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    --r: 10px; --shadow: 0 1px 2px rgba(60,50,30,.05), 0 8px 24px rgba(60,50,30,.06);
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.55 var(--sans); }
+  a { color: inherit; }
+  svg { display: block; }
+  .container { width: 100%; max-width: 1140px; margin: 0 auto; padding: 0 20px; }
+  .eyebrow { font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; color: #8f5322; font-weight: 600; }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 400; letter-spacing: -.015em; margin: 0; }
+  h2 { font-size: clamp(1.7rem, 4.2vw, 2.4rem); line-height: 1.15; }
+  .lead { color: var(--muted); font-size: 1.05rem; max-width: 34em; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 52px; padding: 0 24px;
+    border-radius: 12px; font: 500 1rem var(--sans); letter-spacing: .02em; text-decoration: none; cursor: pointer; border: 1.5px solid transparent; transition: background .2s; }
+  .btn-primary { background: var(--green); color: #fff; }
+  .btn-primary:hover { background: var(--green-2); }
+  .btn-ghost { border-color: var(--green); color: var(--green); background: transparent; }
+  .btn-ghost:hover { background: var(--olive-soft); }
+  .btn svg { width: 18px; height: 18px; }
+  :focus-visible { outline: 3px solid #b9d3a9; outline-offset: 3px; }
+
+  .demo { background: var(--brass-soft); color: #6b4517; font-size: .82rem; text-align: center; padding: 7px 16px; }
+
+  .site-header { position: sticky; top: 0; z-index: 30; background: rgba(250,247,240,.93); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+  .site-header .container { display: flex; align-items: center; gap: 16px; min-height: 68px; }
+  .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .brand svg { width: 40px; height: 40px; }
+  .brand .wm { font-family: var(--serif); font-size: 1.55rem; font-weight: 500; line-height: 1; }
+  .brand .sub { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-top: 3px; }
+  .nav { display: none; gap: 26px; margin-left: 28px; }
+  .nav a { text-decoration: none; color: var(--muted); font-size: .95rem; }
+  .nav a:hover { color: var(--text); }
+  .head-actions { margin-left: auto; display: flex; align-items: center; gap: 14px; }
+  .head-phone { display: none; text-decoration: none; font-weight: 600; }
+  .cart-btn { position: relative; width: 48px; height: 48px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--paper); cursor: pointer; display: grid; place-items: center; color: var(--text); }
+  .cart-btn svg { width: 22px; height: 22px; }
+  .badge { position: absolute; top: -4px; right: -4px; min-width: 22px; height: 22px; border-radius: 999px; background: var(--brass); color: #fff; font-size: .75rem; font-weight: 700; display: grid; place-items: center; padding: 0 6px; }
+  .badge:empty { display: none; }
+
+  .hero { padding: 36px 0 28px; }
+  .hero .grid { display: grid; gap: 28px; }
+  .hero h1 { font-size: clamp(2.6rem, 9vw, 4.4rem); line-height: 1.02; margin: 16px 0 18px; }
+  .hero h1 em { font-style: italic; color: var(--green); }
+  .hero .lead { max-width: 30em; }
+  .cta { display: flex; flex-wrap: wrap; gap: 12px; margin: 26px 0 22px; }
+  .trust { display: flex; flex-wrap: wrap; gap: 10px 22px; color: var(--muted); font-size: .92rem; align-items: center; }
+  .trust b { color: var(--text); }
+  .stars { display: inline-flex; gap: 2px; color: var(--brass); vertical-align: -2px; }
+  .stars svg { width: 15px; height: 15px; }
+  .status { display: inline-flex; align-items: center; gap: 8px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: #5b9a4b; box-shadow: 0 0 0 4px #e3efdc; }
+  .dot.closed { background: #b9843f; box-shadow: 0 0 0 4px #f4e7d6; }
+  .art { position: relative; border-radius: 16px; background: radial-gradient(120% 90% at 80% 10%, #f3e3cf 0%, #efe9da 45%, #e5ecdb 100%); overflow: hidden; border: 1px solid var(--line); min-height: 320px; }
+  .art img.ph { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 70% 75%; }
+  .float-card { position: absolute; left: 14px; right: 14px; top: 14px; max-width: 340px; background: rgba(255,255,255,.96); border-radius: 10px; padding: 14px 16px; box-shadow: var(--shadow); display: flex; align-items: center; gap: 12px; }
+  .float-card .t { flex: 1; min-width: 0; }
+  .float-card .t b { font-family: var(--serif); font-size: 1.1rem; display: block; }
+  .float-card .t span { color: var(--muted); font-size: .86rem; }
+
+  .features { padding: 24px 0 48px; }
+  .features .row { display: grid; gap: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .feature { display: flex; gap: 14px; align-items: flex-start; padding: 22px 0; }
+  .feature + .feature { border-top: 1px solid var(--line); }
+  .feature .ic { color: var(--green); flex: none; padding-top: 3px; }
+  .feature .ic svg { width: 22px; height: 22px; }
+  .feature h3 { font-size: 1.25rem; margin-bottom: 2px; }
+  .feature p { margin: 0; color: var(--muted); font-size: .93rem; }
+
+  section.block { padding: 64px 0; }
+  .block-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px; margin-bottom: 32px; }
+  .block-head p { margin: 0; }
+  .hits { display: grid; gap: 40px 32px; }
+  .hit { display: flex; flex-direction: column; gap: 4px; }
+  .hit .ph { object-position: 80% 100%; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--r); margin-bottom: 14px; background: var(--tint); }
+  .hit .cat { font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; color: #8f5322; font-weight: 600; }
+  .hit h3 { font-size: 1.45rem; line-height: 1.2; }
+  .hit p { margin: 0; color: var(--muted); font-size: .92rem; }
+  .hit .foot { display: flex; align-items: center; gap: 18px; margin-top: 10px; }
+  .price { font-family: var(--serif); font-size: 1.25rem; font-weight: 500; white-space: nowrap; font-variant-numeric: lining-nums tabular-nums; }
+  .tbd { color: var(--brass); margin-left: 2px; }
+  .foot-note { color: var(--muted); font-size: .82rem; margin: 10px 0 0; }
+
+  .tabs { position: sticky; top: 69px; z-index: 20; background: rgba(250,247,240,.95); backdrop-filter: blur(8px); display: flex; gap: 6px; overflow-x: auto; padding: 10px 20px; margin: 0 -20px 8px; scrollbar-width: none; border-bottom: 1px solid var(--line); }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tabs a { flex: none; text-decoration: none; padding: 9px 16px; border-radius: 999px; font-size: .93rem; color: var(--muted); border: 1px solid transparent; }
+  .tabs a.on { color: var(--green); border-color: var(--green); background: var(--paper); font-weight: 600; }
+  .menu-cat { scroll-margin-top: 140px; padding-top: 28px; margin-top: 18px; border-top: 1px solid var(--line); }
+  .menu-cat:first-of-type { border-top: 0; margin-top: 0; }
+  .menu-cat h3 { font-size: 1.7rem; display: flex; align-items: baseline; gap: 12px; margin-bottom: 4px; }
+  .menu-cat h3 small { font-family: var(--sans); font-size: .85rem; color: var(--muted); font-weight: 400; }
+  .menu-list { display: grid; gap: 0 48px; }
+  .dish { display: grid; grid-template-columns: 1fr auto auto; gap: 2px 14px; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .dish .n { font-weight: 500; font-size: 1.04rem; grid-column: 1; }
+  .dish .d { grid-column: 1; color: var(--muted); font-size: .86rem; }
+  .dish .price { font-size: 1.08rem; grid-row: 1 / span 2; grid-column: 2; text-align: right; }
+  .dish .act { grid-row: 1 / span 2; grid-column: 3; }
+  .dish.has-ph { grid-template-columns: 64px 1fr auto auto; }
+  .dish.has-ph .ph { grid-row: 1 / span 2; grid-column: 1; width: 64px; height: 64px; object-fit: cover; border-radius: 8px; }
+  .dish.has-ph .n, .dish.has-ph .d { grid-column: 2; }
+  .dish.has-ph .price { grid-column: 3; }
+  .dish.has-ph .act { grid-column: 4; }
+  .add { width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--green); color: var(--green); background: var(--paper); font-size: 1.4rem; line-height: 1; cursor: pointer; display: grid; place-items: center; }
+  .add:hover { background: var(--olive-soft); }
+  .stepper { display: inline-flex; align-items: center; gap: 4px; background: var(--green); color: #fff; border-radius: 999px; padding: 3px; }
+  .stepper button { width: 38px; height: 38px; border-radius: 50%; border: 0; background: transparent; color: #fff; font-size: 1.25rem; cursor: pointer; }
+  .stepper span { min-width: 20px; text-align: center; font-weight: 700; }
+  .featured { background: var(--paper); border: 1px solid #e3cfb6; border-radius: var(--r); padding: 6px 20px; margin-top: 10px; }
+  .featured .dish { border-bottom: 0; }
+
+  .lunch { background: var(--olive-soft); border-radius: 16px; padding: 28px 24px; display: grid; gap: 14px; }
+  .lunch .when { font-family: var(--serif); font-size: 1.3rem; margin-top: 4px; }
+
+  .steps { display: grid; gap: 14px; }
+  .step { background: var(--paper); border: 1px solid var(--line); border-radius: var(--r); padding: 20px; }
+  .step .num { font-family: var(--serif); font-size: 2.2rem; color: var(--brass); line-height: 1; }
+  .step h3 { font-size: 1.15rem; margin: 8px 0 4px; }
+  .step p { margin: 0; color: var(--muted); font-size: .93rem; }
+  .terms { margin-top: 14px; background: var(--tint); border-radius: var(--r); padding: 16px 18px; color: var(--muted); font-size: .93rem; }
+
+  .reviews { display: grid; gap: 14px; }
+  .review { background: var(--paper); border: 1px solid var(--line); border-radius: var(--r); padding: 22px; }
+  .review q { display: block; font-family: var(--serif); font-size: 1.12rem; line-height: 1.5; quotes: "«" "»"; }
+  .review .src { margin-top: 12px; color: var(--muted); font-size: .85rem; display: flex; align-items: center; gap: 8px; }
+
+  .contacts { display: grid; gap: 22px; background: var(--paper); border: 1px solid var(--line); border-radius: 16px; padding: 26px 22px; }
+  .contacts dl { margin: 0; display: grid; gap: 14px; }
+  .contacts dt { font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+  .contacts dd { margin: 2px 0 0; font-size: 1.1rem; }
+  .contacts .btns { display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-start; }
+  footer.site { padding: 34px 0 110px; color: var(--muted); font-size: .85rem; }
+
+  .bar { position: fixed; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom)); z-index: 40; display: none; }
+  .bar.show { display: block; }
+  .bar button { width: 100%; min-height: 58px; border: 0; border-radius: 18px; background: var(--green); color: #fff; font: 600 1rem var(--sans); display: flex; align-items: center; justify-content: space-between; padding: 0 20px; box-shadow: 0 10px 30px rgba(47,90,42,.28); cursor: pointer; }
+
+  .overlay { position: fixed; inset: 0; background: rgba(47,49,43,.32); z-index: 50; opacity: 0; pointer-events: none; transition: opacity .2s; }
+  .overlay.open { opacity: 1; pointer-events: auto; }
+  .drawer { position: fixed; z-index: 60; background: var(--bg); left: 0; right: 0; bottom: 0; max-height: 92vh; border-radius: 24px 24px 0 0; transform: translateY(105%); transition: transform .28s ease; overflow-y: auto; padding: 22px 20px calc(22px + env(safe-area-inset-bottom)); visibility: hidden; }
+  .drawer.open { transform: none; visibility: visible; }
+  .drawer-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .drawer-head h2 { font-size: 1.7rem; }
+  .x { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--line); background: var(--paper); cursor: pointer; font-size: 1.1rem; color: var(--text); }
+  .cl { display: grid; grid-template-columns: 1fr auto; gap: 8px 12px; padding: 12px 0; border-bottom: 1px solid var(--line); align-items: center; }
+  .cl .n { font-weight: 600; }
+  .cl .p { font-family: var(--serif); font-weight: 500; text-align: right; font-variant-numeric: lining-nums tabular-nums; }
+  .cl .stepper { grid-column: 1; justify-self: start; background: var(--tint); color: var(--text); }
+  .cl .stepper button { color: var(--text); width: 40px; height: 40px; }
+  .sum { display: flex; justify-content: space-between; font-family: var(--serif); font-size: 1.4rem; font-weight: 500; font-variant-numeric: lining-nums tabular-nums; padding: 14px 0 6px; }
+  .seg { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; background: var(--tint); border-radius: 999px; padding: 4px; margin: 12px 0; }
+  .seg button { min-height: 44px; border: 0; border-radius: 999px; background: transparent; font: 600 .95rem var(--sans); color: var(--muted); cursor: pointer; }
+  .seg button.on { background: var(--paper); color: var(--green); box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+  .note { font-size: .86rem; color: var(--muted); background: var(--tint); border-radius: 14px; padding: 10px 14px; }
+  .field { margin-top: 12px; }
+  .field label { display: block; font-size: .85rem; color: var(--muted); margin-bottom: 5px; }
+  .field input, .field select, .field textarea { width: 100%; min-height: 50px; border: 1px solid var(--line); border-radius: 14px; background: var(--paper); padding: 12px 14px; font: inherit; color: var(--text); }
+  .field textarea { min-height: 76px; resize: vertical; }
+  .err { color: #a8261e; font-size: .84rem; margin-top: 5px; }
+  .hint { color: var(--muted); font-size: .8rem; margin-top: 5px; }
+  .ac { position: relative; }
+  .sugg { position: absolute; left: 0; right: 0; top: calc(100% + 4px); z-index: 5; list-style: none; margin: 0; padding: 4px; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow); max-height: 264px; overflow-y: auto; }
+  .sugg li { padding: 12px; border-radius: 8px; cursor: pointer; min-height: 44px; }
+  .sugg li.on, .sugg li:hover { background: var(--olive-soft); }
+  .sugg li b { font-weight: 600; }
+  .agree { display: flex; gap: 10px; align-items: flex-start; font-size: .84rem; color: var(--muted); margin-top: 14px; }
+  .agree input { width: 22px; height: 22px; accent-color: var(--green); flex: none; margin: 1px 0 0; }
+  .submit { width: 100%; margin-top: 16px; }
+  .res { margin-top: 18px; display: grid; gap: 12px; }
+  .res .card { background: var(--paper); border: 1px solid var(--line); border-radius: 18px; padding: 16px; }
+  .lbl { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .res h3 { font-size: 1.3rem; margin-bottom: 4px; }
+  .tg { background: var(--olive-soft); border-radius: 12px; padding: 14px; }
+  .tg .bubble { background: #fff; border-radius: 14px 14px 14px 4px; padding: 10px 12px; white-space: pre-wrap; font-size: .92rem; }
+  .tg .bot { color: var(--green); font-weight: 700; font-size: .85rem; margin-bottom: 4px; }
+  .tg .meta { text-align: right; font-size: .74rem; color: var(--muted); margin-top: 4px; }
+  .tg .acts { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 8px; }
+  .tg .acts span { background: #fff; border-radius: 10px; text-align: center; padding: 8px; color: var(--green); font-weight: 600; font-size: .85rem; }
+  .hidden { display: none !important; }
+  .call-btn { width: 48px; height: 48px; border-radius: 999px; border: 1.5px solid var(--line); background: var(--paper); display: grid; place-items: center; color: var(--green); }
+  .call-btn svg { width: 20px; height: 20px; }
+  .drawer.done .fp { display: none !important; }
+  .back { width: 100%; margin-top: 4px; }
+  .closed-note { margin: 8px 0 4px; }
+  .opt { color: var(--muted); font-weight: 400; }
+  @media (max-width: 719px) {
+    .art { min-height: 0; aspect-ratio: 4 / 3; }
+    .art img.ph { object-position: 100% 100%; }
+    .float-card { padding: 10px 12px; }
+  }
+
+  @media (min-width: 720px) {
+    .steps { grid-template-columns: repeat(3, 1fr); }
+    .reviews { grid-template-columns: repeat(3, 1fr); }
+    .lunch { grid-template-columns: 1fr auto; align-items: center; padding: 34px 38px; }
+    .contacts { grid-template-columns: 1.2fr 1fr; padding: 34px; }
+  }
+  @media (min-width: 980px) {
+    .nav { display: flex; }
+    .head-phone { display: inline-flex; }
+    .call-btn { display: none; }
+    .hero { padding: 56px 0 40px; }
+    .hero .grid { grid-template-columns: 1.05fr 1fr; align-items: center; gap: 56px; }
+    .art { min-height: 460px; }
+    section.block { padding: 104px 0; }
+    .features .row { border-bottom: 1px solid var(--line); }
+    .feature { padding: 26px 28px; }
+    .feature:first-child { padding-left: 0; }
+    .feature + .feature { border-top: 0; border-left: 1px solid var(--line); }
+    .hits { grid-template-columns: repeat(3, 1fr); }
+    .hit .ph { aspect-ratio: 4 / 5; }
+    .menu-list { grid-template-columns: 1fr 1fr; }
+    .bar { display: none !important; }
+    .features .row { grid-template-columns: repeat(3, 1fr); }
+    .drawer { left: auto; top: 0; bottom: 0; width: 440px; max-height: none; border-radius: 0; transform: translateX(105%); padding-top: 26px; }
+    footer.site { padding-bottom: 40px; }
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-bag" viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7L6 8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 8V6a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M6.6 3.5l2.6.4 1.2 4-1.9 1.4a12 12 0 0 0 6.2 6.2l1.4-1.9 4 1.2.4 2.6c-.3 1.6-1.9 2.6-3.5 2.4C10 19.1 4.9 14 4.2 7c-.2-1.6.8-3.2 2.4-3.5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.8-4.4 4.3 1 6.1L12 17l-5.4 2.8 1-6.1-4.4-4.3 6.1-.8z" fill="currentColor"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19c0-8 5-13 14-14-1 9-6 14-14 14z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M5 19l9-9" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></symbol>
+  <symbol id="i-fire" viewBox="0 0 24 24"><path d="M12 3c1 3 4 4.5 4 8.5A4 4 0 0 1 8 11.5c0-1.5.6-2.6 1.4-3.5.2 1.6 1 2.5 2 2.8C11 8 11.2 5.5 12 3z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M5 20h14M8 17h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-moto" viewBox="0 0 24 24"><circle cx="6" cy="17" r="3" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="18" cy="17" r="3" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6 17l4-7h5l3 7M10 10l-1-3H6M15 10l2-3h2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="9.5" r="2.5" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+</svg>
+
+<div class="demo">Демо-версия сайта для Dolma. Меню — по вашему фото меню; цены со звёздочкой сверим вместе. Фото — из вашего Instagram, остальные добавим по вашим снимкам. Заказы никуда не отправляются.</div>
+
+<header class="site-header">
+  <div class="container">
+    <a class="brand" href="#top" aria-label="Dolma — на главную">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22.5" fill="#fff" stroke="#2f5a2a" stroke-width="1.5"/><path d="M24 36c-7-3-11-9-10-16 4.5.5 7.5-2.5 10-6 2.5 3.5 5.5 6.5 10 6 1 7-3 13-10 16z" fill="#e9efe1" stroke="#2f5a2a" stroke-width="1.4" stroke-linejoin="round"/><path d="M24 36V17M24 25l-5-3.5M24 29.5l5.5-4M24 33l-4-2.6" stroke="#2f5a2a" stroke-width="1.3" fill="none" stroke-linecap="round"/></svg>
+      <div><div class="wm">Dolma</div><div class="sub">café · Ставрополь</div></div>
+    </a>
+    <nav class="nav" aria-label="Разделы">
+      <a href="#menu">Меню</a><a href="#delivery">Доставка</a><a href="#reviews">Отзывы</a><a href="#contacts">Контакты</a>
+    </nav>
+    <div class="head-actions">
+      <a class="head-phone" href="tel:+78652454600">45-46-00</a>
+      <a class="call-btn" id="callBtn" href="tel:+78652454600" aria-label="Позвонить 45-46-00"><svg><use href="#i-phone"/></svg></a>
+      <button class="cart-btn" id="cartOpen" aria-label="Корзина"><svg><use href="#i-bag"/></svg><span class="badge" id="badge"></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="container grid">
+      <div>
+        <div class="eyebrow">Халяль · мангал на углях · хычины</div>
+        <h1>Мясо на углях <em>и&nbsp;горячие хычины</em></h1>
+        <p class="lead">Готовим после заказа и привозим по Ставрополю. Или забирайте сами — пр. Черняховского, 1А.</p>
+        <div class="cta">
+          <a class="btn btn-primary" href="#menu">Открыть меню</a>
+          <a class="btn btn-ghost" href="tel:+78652454600"><svg><use href="#i-phone"/></svg>45-46-00</a>
+        </div>
+        <div class="trust">
+          <span><span class="stars"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span> <b>4,9</b> · 112 отзывов на Яндекс Картах</span>
+          <span class="status"><span class="dot" id="statusDot"></span><span id="statusText">Ежедневно 10:00–22:00</span></span>
+        </div>
+      </div>
+      <div class="art">
+        <img class="ph" src="assets/p06_koreika.jpg" width="576" height="576" alt="Шашлык из бараньих рёбер и корейки на углях">
+        <div class="float-card">
+          <div class="t"><b>Шашлык из бараньих рёбер</b><span>200 г · на углях после заказа</span></div>
+          <div class="price">700 ₽</div>
+          <div class="act" data-ctl="Шашлык из бараньих рёбер"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="container row">
+      <div class="feature"><div class="ic"><svg><use href="#i-leaf"/></svg></div><div><h3>Халяль</h3><p>Формулировку согласуем с вами.</p></div></div>
+      <div class="feature"><div class="ic"><svg><use href="#i-fire"/></svg></div><div><h3>На углях после заказа</h3><p>Шашлык, люля и овощи готовим на мангале, а не разогреваем.</p></div></div>
+      <div class="feature"><div class="ic"><svg><use href="#i-moto"/></svg></div><div><h3>Доставка и самовывоз</h3><p>Соберите заказ на сайте — администратор перезвонит и подтвердит.</p></div></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="container">
+      <div class="block-head"><div><div class="eyebrow">С нашей кухни</div><h2>Фирменные блюда</h2></div></div>
+      <div class="hits" id="hits"></div>
+      <p class="foot-note">* цену уточним при показе</p>
+    </div>
+  </section>
+
+  <section class="block" id="menu">
+    <div class="container">
+      <div class="block-head"><div><h2>Меню</h2></div><p class="lead">Цены — с вашего меню, ноябрь 2026</p></div>
+      <nav class="tabs" id="tabs" aria-label="Разделы меню"></nav>
+      <div id="menuBody"></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="container">
+      <div class="lunch">
+        <div><h2>Бизнес-ланч</h2><div class="when">Понедельник — пятница, 12:00–16:00</div></div>
+        <div class="note">Состав и цену добавим вместе с вами</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="delivery">
+    <div class="container">
+      <div class="block-head"><div><h2>Как заказать</h2></div></div>
+      <div class="steps">
+        <div class="step"><div class="num">1</div><h3>Выберите блюда</h3><p>Добавьте в корзину всё, что хотите, — сумма считается сразу.</p></div>
+        <div class="step"><div class="num">2</div><h3>Оставьте телефон</h3><p>Доставка или самовывоз, адрес и удобное время.</p></div>
+        <div class="step"><div class="num">3</div><h3>Мы перезвоним</h3><p>Администратор подтвердит заказ и скажет, когда будет готово.</p></div>
+      </div>
+      <div class="terms">Стоимость доставки, зона и минимальная сумма — <b>впишем ваши условия</b>.</div>
+    </div>
+  </section>
+
+  <section class="block" id="reviews">
+    <div class="container">
+      <div class="block-head"><div><h2>Что пишут гости</h2></div></div>
+      <div class="reviews">
+        <div class="review"><q>Заказывали хычины с доставкой на дом… это высший пилотаж! Лучше всяких хачапури, осетинских пирогов!</q><div class="src">Отзыв на Яндекс Картах</div></div>
+        <div class="review"><q>Шаурма, на мой взгляд, одна из лучших в городе. Приветливый персонал — как будто приехал в гости к маме.</q><div class="src">Отзыв на Яндекс Картах</div></div>
+        <div class="review"><q>Практически каждый день здесь обедаю, завтракаю, ужинаю! Ещё заказываю на вынос. Всё очень вкусно, сытно!</q><div class="src">Отзыв на Яндекс Картах</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="contacts">
+    <div class="container">
+      <div class="contacts">
+        <dl>
+          <div><dt>Адрес</dt><dd>Ставрополь, пр. Черняховского, 1А</dd></div>
+          <div><dt>Часы работы</dt><dd>Ежедневно 10:00–22:00</dd></div>
+          <div><dt>Телефон доставки</dt><dd><a href="tel:+78652454600">45-46-00</a></dd></div>
+        </dl>
+        <div class="btns">
+          <a class="btn btn-primary" href="tel:+78652454600"><svg><use href="#i-phone"/></svg>Позвонить</a>
+          <a class="btn btn-ghost" href="https://yandex.ru/maps/org/dolma/191843988451/" target="_blank" rel="noopener noreferrer"><svg><use href="#i-pin"/></svg>Маршрут</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site"><div class="container">© Dolma café, Ставрополь · Демо-версия сайта · Фото — из Instagram кафе</div></footer>
+
+<div class="bar" id="bar"><button id="barBtn" type="button"><span id="barCount"></span><span id="barSum"></span></button></div>
+
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dTitle">
+  <div class="drawer-head"><h2 id="dTitle">Ваш заказ</h2><button class="x" id="cartClose" type="button" aria-label="Закрыть">✕</button></div>
+  <div id="lines"></div>
+  <div class="sum"><span>Итого</span><span id="total">0 ₽</span></div>
+  <div class="seg" role="group" aria-label="Способ получения"><button id="mDel" class="on" type="button">Доставка</button><button id="mPick" type="button">Самовывоз</button></div>
+  <div class="note" id="delivNote">Стоимость доставки, зона и минимальная сумма — впишем ваши условия.</div>
+  <div class="note closed-note hidden" id="closedNote">Сейчас мы закрыты — заказ примем, а перезвоним и подтвердим после 10:00.</div>
+  <div class="note hidden" id="pickNote">Самовывоз: пр. Черняховского, 1А. Перезвоним и скажем, к какому времени будет готово.</div>
+  <div class="field"><label for="fName">Имя <span class="opt">(необязательно)</span></label><input id="fName" autocomplete="name"></div>
+  <div class="field"><label for="fPhone">Телефон</label><input id="fPhone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__"><div class="err hidden" id="ePhone">Укажите телефон — перезвоним для подтверждения</div></div>
+  <div class="field" id="addrBox"><label for="fAddr">Адрес доставки</label><div class="ac"><input id="fAddr" autocomplete="off" placeholder="Начните вводить улицу" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="addrList"><ul class="sugg hidden" id="addrList" role="listbox"></ul></div><div class="hint" id="addrHint">Начните вводить улицу — подскажем. Нет в списке? Напишите адрес как есть</div><div class="err hidden" id="eAddr">Укажите адрес доставки</div></div>
+  <div class="field"><label for="fTime">Когда</label><select id="fTime"><option>Как можно скорее</option><option>Через 1 час</option><option>Через 2 часа</option><option>Ко времени — напишу в комментарии</option></select></div>
+  <div class="field"><label for="fPay">Оплата</label><select id="fPay"><option>Наличными</option><option>Переводом</option><option>Картой при получении</option></select></div>
+  <div class="field"><label for="fNote">Комментарий <span class="opt">(необязательно)</span></label><textarea id="fNote" placeholder="Например: шашлык без лука, сдача с 5000"></textarea></div>
+  <label class="agree"><input type="checkbox" id="fAgree"><span>Согласен на обработку имени и телефона для оформления заказа</span></label>
+  <div class="err hidden" id="eAgree">Нужно согласие, чтобы оформить заказ</div>
+  <button class="btn btn-primary submit" id="send" type="button">Оформить заказ</button>
+  <div class="res" id="result"></div>
+</aside>
+
+<script src="assets/streets.js"></script>
+<script>
+"use strict";
+// Меню — по фото меню, присланному кафе 02.11.2026 (кафе подтвердило актуальность цен).
+// 4-й элемент true — цена плохо читалась на фото: показываем «уточним», сверить на показе.
+const MENU = [
+  { id: "mangal", cat: "Мангал", note: "готовим на углях после заказа", items: [
+    ["Шашлык из бараньих рёбер", "200 г", 700], ["Шашлык из бараньей корейки", "200 г", 1000], ["Шашлык ики-бир", "200 г · баранина и курдюк", 700],
+    ["Шашлык из телятины", "200 г", 1000], ["Куриные крылышки", "200 г", 400], ["Куриное филе", "200 г", 500],
+    ["Люля-кебаб из говядины", "170 г", 420], ["Люля-кебаб из курицы", "170 г", 350], ["Люля-кебаб из баранины", "170 г", 450],
+    ["Хан-кебаб", "говядина, сыр, баклажан, соус, лаваш", 590], ["Картофель с курдюком", "200 г", 320], ["Овощи на мангале", "200 г", 480], ["Грибы на мангале", "200 г", 400],
+  ]},
+  { id: "set", cat: "Мангал-сет", note: "на большую компанию", featured: true, items: [
+    ["Мангал-сет «Ассорти»", "корейка баранья, телятина, люля куриный и говяжий, филе и крылья, грибы, картофель, овощи, три соуса, лепёшка", 5800],
+  ]},
+  { id: "pies", cat: "Хычины", note: "430 г", items: [
+    ["Хычин с мясом", "430 г", 450], ["Хычин с сыром", "430 г", 420], ["Хычин с сыром и картофелем", "430 г", 400], ["Хычин с сыром и зеленью", "430 г", 430],
+  ]},
+  { id: "soups", cat: "Первые блюда", note: "400 г", items: [
+    ["Шорпа из баранины", "400 г", 490], ["Харчо из баранины", "400 г", 450], ["Чечевичный суп", "400 г", 350], ["Суп куриный", "400 г", 450, true],
+  ]},
+  { id: "mains", cat: "Вторые блюда", note: "", items: [
+    ["Долма с соусом", "1 шт.", 90, true], ["Жаркое с томлёной говядиной", "400 г", 630], ["Баранина с овощами", "500 г", 690], ["Жаркое с курицей", "400 г", 510],
+    ["Манты с говядиной", "4 шт.", 550], ["Пельмени с говядиной", "250 г", 450], ["Вареники с картофелем", "250 г", 370], ["Цыплёнок табака", "300 г", 590], ["Плов с говядиной", "300 г", 470],
+  ]},
+  { id: "salads", cat: "Салаты", note: "", items: [
+    ["Цезарь с курицей", "290 г", 500], ["Цезарь с креветками", "290 г", 550], ["Лаззат", "290 г · с хрустящими баклажанами", 500],
+    ["Овощной по-грузински", "250 г", 390], ["Овощной", "250 г · с маслом или сметаной", 350],
+  ]},
+  { id: "sides", cat: "Гарниры и хлеб", note: "", items: [
+    ["Картофель по-деревенски", "150 г", 200], ["Картофель фри", "100 г", 150], ["Гречка", "200 г", 200], ["Лаваш тонкий", "1 шт.", 60], ["Лепёшка", "1 шт.", 50, true],
+  ]},
+  { id: "breakfast", cat: "Завтрак", note: "", items: [
+    ["Завтрак", "шакшука или омлет, сэндвич, капучино или чай", 700],
+  ]},
+  { id: "drinks", cat: "Напитки", note: "", items: [
+    ["Айран", "200 мл", 100, true], ["Лимонад в ассортименте", "500 мл", 250, true], ["Вода минеральная", "500 мл", 120, true], ["Кола / Фанта", "330 мл", 140, true],
+    ["Чай, стакан", "200 мл", 70, true], ["Чай чёрный или зелёный, чайник", "800 мл", 250, true], ["Чай апельсин с облепихой", "800 мл", 350, true],
+    ["Чай маракуйя-персик", "800 мл", 350, true], ["Чай на горных травах", "800 мл", 350, true], ["Кофе по-турецки", "", 150, true], ["Капучино", "", 150, true],
+  ]},
+];
+// Фото — из Instagram кафе @dolma_cafe_stv (взяты с согласия владельца CRM, 03.11.2026).
+const PHOTO = {
+  "Долма с соусом": "assets/p11.jpg",
+  "Харчо из баранины": "assets/p07_harcho.jpg",
+  "Картофель с курдюком": "assets/p04_kartofel.jpg",
+  "Шашлык из бараньих рёбер": "assets/p06_koreika.jpg",
+};
+const THUMB = { "Шашлык из бараньих рёбер": "assets/p06_thumb.jpg", "Долма с соусом": "assets/p11_thumb.jpg" };
+const HITS = [
+  ["Первые блюда", "Харчо из баранины", "400 г, суп из баранины"],
+  ["Вторые блюда", "Долма с соусом", "1 шт. · виноградные листья с начинкой, с соусом"],
+  ["Мангал", "Картофель с курдюком", "200 г, на углях после заказа"],
+];
+
+const price = new Map(), tbd = new Set(), cart = new Map();
+let mode = "Доставка", orderNo = 41;
+const $ = (id) => document.getElementById(id);
+const el = (t, c, x) => { const e = document.createElement(t); if (c) e.className = c; if (x !== undefined) e.textContent = x; return e; };
+const rub = (n) => n.toLocaleString("ru-RU") + " ₽";
+const plural = (n, a, b, c) => { const m = n % 10, h = n % 100; return m === 1 && h !== 11 ? a : m >= 2 && m <= 4 && (h < 12 || h > 14) ? b : c; };
+MENU.forEach((c) => c.items.forEach(([n, , p, t]) => { price.set(n, p); if (t) tbd.add(n); }));
+
+function priceEl(name) {
+  const p = el("div", "price", rub(price.get(name)));
+  if (tbd.has(name)) p.append(el("span", "tbd", "*"));
+  return p;
+}
+function photo(name, loading) {
+  const img = el("img", "ph"); img.src = PHOTO[name]; img.alt = name; img.width = 576; img.height = 576; img.loading = loading; img.decoding = "async";
+  return img;
+}
+function control(name) { const box = el("div", "act"); box.dataset.ctl = name; return box; }
+
+HITS.forEach(([cat, name, desc], i) => {
+  const h = el("article", "hit");
+  h.append(photo(name, "lazy"), el("div", "cat", cat), el("h3", "", name), el("p", "", desc));
+  const f = el("div", "foot");
+  f.append(priceEl(name), control(name));
+  h.append(f);
+  $("hits").append(h);
+});
+
+MENU.forEach((c, i) => {
+  const a = el("a", i === 0 ? "on" : "", c.cat);
+  a.href = "#c-" + c.id;
+  $("tabs").append(a);
+  const sec = el("div", "menu-cat");
+  sec.id = "c-" + c.id;
+  const h = el("h3", "", c.cat);
+  if (c.note) h.append(el("small", "", c.note));
+  sec.append(h);
+  const list = el("div", c.featured ? "featured" : "menu-list");
+  c.items.forEach(([name, desc]) => {
+    const d = el("div", PHOTO[name] ? "dish has-ph" : "dish");
+    if (PHOTO[name]) { const t = photo(name, "lazy"); if (THUMB[name]) t.src = THUMB[name]; d.append(t); }
+    d.append(el("div", "n", name));
+    if (desc) d.append(el("div", "d", desc));
+    d.append(priceEl(name), control(name));
+    list.append(d);
+  });
+  sec.append(list);
+  if (c.items.some((it) => it[3])) sec.append(el("p", "foot-note", "* цену уточним при показе"));
+  $("menuBody").append(sec);
+});
+
+function stepper(name, q) {
+  const s = el("div", "stepper");
+  const m = el("button", "", "−"); m.type = "button"; m.setAttribute("aria-label", "Меньше: " + name); m.onclick = () => change(name, -1);
+  const p = el("button", "", "+"); p.type = "button"; p.setAttribute("aria-label", "Больше: " + name); p.onclick = () => change(name, 1);
+  s.append(m, el("span", "", String(q)), p);
+  return s;
+}
+function renderControls() {
+  document.querySelectorAll("[data-ctl]").forEach((box) => {
+    const name = box.dataset.ctl, q = cart.get(name) || 0;
+    box.replaceChildren();
+    if (!q) {
+      const b = el("button", "add", "+"); b.type = "button";
+      b.setAttribute("aria-label", "Добавить: " + name);
+      b.onclick = () => change(name, 1);
+      box.append(b);
+    } else box.append(stepper(name, q));
+  });
+}
+const totals = () => { let n = 0, s = 0; cart.forEach((q, k) => { n += q; s += q * price.get(k); }); return { n, s }; };
+function change(name, d) {
+  const q = (cart.get(name) || 0) + d;
+  if (q <= 0) cart.delete(name); else cart.set(name, q);
+  renderControls(); renderCart();
+}
+function renderCart() {
+  const { n, s } = totals();
+  $("badge").textContent = n ? String(n) : "";
+  $("bar").classList.toggle("show", n > 0);
+  $("barCount").textContent = n + " " + plural(n, "блюдо", "блюда", "блюд") + " · Оформить";
+  $("barSum").textContent = rub(s);
+  $("total").textContent = rub(s);
+  const box = $("lines");
+  box.replaceChildren();
+  if (!n) box.append(el("p", "lead", "Корзина пока пуста — добавьте блюда из меню."));
+  cart.forEach((q, name) => {
+    const l = el("div", "cl");
+    l.append(el("div", "n", name), el("div", "p", rub(q * price.get(name))), stepper(name, q));
+    box.append(l);
+  });
+}
+["#lines", ".sum", ".seg", "#delivNote", "#pickNote", "#closedNote", ".drawer .field", ".agree", "#eAgree", "#send"].forEach((q) => document.querySelectorAll(q).forEach((e) => e.classList.add("fp")));
+function openCart() { $("drawer").classList.remove("done"); $("drawer").classList.add("open"); $("overlay").classList.add("open"); $("result").replaceChildren(); $("cartClose").focus(); }
+function closeCart() { $("drawer").classList.remove("open"); $("overlay").classList.remove("open"); }
+$("cartOpen").onclick = openCart; $("barBtn").onclick = openCart; $("cartClose").onclick = closeCart; $("overlay").onclick = closeCart;
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeCart(); });
+function setMode(m) {
+  mode = m;
+  $("mDel").classList.toggle("on", m === "Доставка"); $("mPick").classList.toggle("on", m === "Самовывоз");
+  $("addrBox").classList.toggle("hidden", m !== "Доставка");
+  $("delivNote").classList.toggle("hidden", m !== "Доставка"); $("pickNote").classList.toggle("hidden", m === "Доставка");
+}
+$("mDel").onclick = () => setMode("Доставка"); $("mPick").onclick = () => setMode("Самовывоз");
+
+function orderLines() {
+  const out = [];
+  cart.forEach((q, name) => out.push("• " + name + " × " + q + " — " + rub(q * price.get(name))));
+  out.push("Итого: " + rub(totals().s));
+  out.push(mode + (mode === "Доставка" ? ": " + $("fAddr").value.trim() : " (пр. Черняховского, 1А)"));
+  out.push("Когда: " + $("fTime").value);
+  out.push("Оплата: " + $("fPay").value);
+  if ($("fName").value.trim()) out.push("Имя: " + $("fName").value.trim());
+  out.push("Телефон: " + $("fPhone").value.trim());
+  if ($("fNote").value.trim()) out.push("Комментарий: " + $("fNote").value.trim());
+  return out.join("\n");
+}
+// Телефон: всегда начинается с +7, дальше 10 цифр
+function showPhoneErr(t) { $("ePhone").textContent = t; $("ePhone").classList.remove("hidden"); }
+function localDigits(v) {
+  let t = v.trim();
+  while (t.startsWith("+7")) t = t.slice(2).trim();
+  let d = t.replace(/\D/g, "");
+  if (d.length === 11 && /^[78]/.test(d)) d = d.slice(1);
+  // по привычке набрали 8 или 7 перед мобильным (8 9xx…) — убираем
+  if (/^[78]9/.test(d)) d = d.slice(1);
+  return d.slice(0, 10);
+}
+function fmtPhone(d) {
+  let o = "+7";
+  if (d.length) o += " (" + d.slice(0, 3);
+  if (d.length >= 3) o += ")";
+  if (d.length > 3) o += " " + d.slice(3, 6);
+  if (d.length > 6) o += "-" + d.slice(6, 8);
+  if (d.length > 8) o += "-" + d.slice(8, 10);
+  return d.length ? o : "+7 ";
+}
+(function () {
+  const f = $("fPhone");
+  let prev = "";
+  f.addEventListener("focus", () => { if (!f.value) f.value = "+7 "; setTimeout(() => f.setSelectionRange(f.value.length, f.value.length)); });
+  f.addEventListener("blur", () => { if (!localDigits(f.value).length) f.value = ""; });
+  f.addEventListener("paste", (e) => {
+    const txt = (e.clipboardData || window.clipboardData).getData("text").trim();
+    if (/^\+(?!7)\d/.test(txt) || /^00/.test(txt)) {
+      e.preventDefault();
+      showPhoneErr("Принимаем номера +7. Другой номер напишите в комментарии");
+    }
+  });
+  f.addEventListener("input", (e) => {
+    let d = localDigits(f.value);
+    // стёрли скобку или дефис — стираем и цифру перед ним
+    if (e.inputType === "deleteContentBackward" && d === prev && d.length) d = d.slice(0, -1);
+    f.value = fmtPhone(d);
+    prev = d;
+    f.setSelectionRange(f.value.length, f.value.length);
+    if (d.length === 10) $("ePhone").classList.add("hidden");
+  });
+})();
+
+const HINT0 = "Начните вводить улицу — подскажем. Нет в списке? Напишите адрес как есть";
+// Адрес: подсказки улиц Ставрополя (список лежит в самом сайте, никуда не отправляется)
+(function () {
+  const inp = $("fAddr"), list = $("addrList");
+  const norm = (x) => x.toLowerCase().replace(/ё/g, "е");
+  const streets = (window.STREETS || []).map((n) => ({ n, k: norm(n), w: norm(n).split(/[\s\-.]+/) }));
+  let items = [], cur = -1, tail = "";
+  function close() { list.classList.add("hidden"); inp.setAttribute("aria-expanded", "false"); cur = -1; }
+  function pick(name) {
+    inp.value = name + ", " + (tail ? tail + ", " : "");
+    close();
+    inp.focus();
+    inp.setSelectionRange(inp.value.length, inp.value.length);
+    $("addrHint").textContent = "Теперь допишите дом, подъезд и квартиру";
+  }
+  function show() {
+    const v = inp.value;
+    if (v.includes(",")) return close();
+    if (!v.trim()) $("addrHint").textContent = HINT0;
+    let q = norm(v.trim()).split(/[\s\-.]+/).filter((t) => t && !["ул", "улица", "пр", "проспект", "пер", "переулок"].includes(t));
+    if (!q.length || q.join("").length < 2) return close();
+    const find = (qq) => streets.filter((s) => qq.every((t) => s.w.some((w) => w.startsWith(t)))).slice(0, 7);
+    tail = "";
+    items = find(q);
+    if (!items.length) {
+      // «Мира 12» — номер дома без запятой: ищем улицу без него, номер сохраним
+      const nums = [];
+      while (q.length > 1 && /\d/.test(q[q.length - 1])) nums.unshift(q.pop());
+      if (nums.length) { items = find(q); tail = v.trim().split(/\s+/).slice(-nums.length).join(" "); }
+    }
+    list.replaceChildren();
+    if (!items.length) { $("addrHint").textContent = "Такой улицы нет в подсказках — просто допишите адрес, уточним по телефону"; return close(); }
+    $("addrHint").textContent = HINT0;
+    items.forEach((s, i) => {
+      const li = el("li", "", s.n);
+      li.id = "as" + i; li.setAttribute("role", "option");
+      li.addEventListener("mousedown", (e) => { e.preventDefault(); pick(s.n); });
+      list.append(li);
+    });
+    cur = -1;
+    list.classList.remove("hidden");
+    inp.setAttribute("aria-expanded", "true");
+  }
+  function mark() { [...list.children].forEach((li, i) => li.classList.toggle("on", i === cur)); if (cur >= 0) { list.children[cur].scrollIntoView({ block: "nearest" }); inp.setAttribute("aria-activedescendant", "as" + cur); } }
+  inp.addEventListener("input", show);
+  inp.addEventListener("focus", () => { show(); setTimeout(() => inp.scrollIntoView({ block: "start", behavior: "smooth" }), 300); });
+  inp.addEventListener("blur", () => setTimeout(close, 120));
+  inp.addEventListener("keydown", (e) => {
+    if (list.classList.contains("hidden")) return;
+    if (e.key === "ArrowDown") { cur = Math.min(cur + 1, items.length - 1); mark(); e.preventDefault(); }
+    else if (e.key === "ArrowUp") { cur = Math.max(cur - 1, 0); mark(); e.preventDefault(); }
+    else if (e.key === "Enter" && cur >= 0) { pick(items[cur].n); e.preventDefault(); }
+    else if (e.key === "Escape") close();
+  });
+})();
+
+$("send").onclick = () => {
+  if (!cart.size) { $("lines").scrollIntoView({ block: "nearest" }); return; }
+  const pd = localDigits($("fPhone").value).length;
+  const okP = pd === 10;
+  if (!okP) $("ePhone").textContent = pd ? "Не хватает цифр: введено " + pd + " из 10" : "Укажите телефон — перезвоним для подтверждения";
+  const addr = $("fAddr").value.trim();
+  const afterStreet = addr.includes(",") ? addr.slice(addr.indexOf(",") + 1) : addr;
+  const okA = mode !== "Доставка" || (addr.length > 3 && /\d/.test(afterStreet));
+  if (!okA) $("eAddr").textContent = addr.length > 3 ? "Допишите номер дома" : "Укажите адрес доставки";
+  const okG = $("fAgree").checked;
+  $("ePhone").classList.toggle("hidden", okP); $("eAddr").classList.toggle("hidden", okA); $("eAgree").classList.toggle("hidden", okG);
+  if (!okP) return $("fPhone").focus();
+  if (!okA) return $("fAddr").focus();
+  if (!okG) return $("fAgree").focus();
+  orderNo += 1;
+  const hhmm = new Date().toLocaleTimeString("ru-RU", { hour: "2-digit", minute: "2-digit", timeZone: "Europe/Moscow" });
+  const text = orderLines();
+  const phone = $("fPhone").value.trim();
+  const res = $("result"); res.replaceChildren();
+  const g = el("div", "card");
+  g.append(el("div", "lbl", "Гость видит на сайте"), el("h3", "", "Заказ №" + orderNo + " принят"),
+    el("div", "", isOpen ? "Администратор перезвонит на " + phone + " в течение 5–10 минут, чтобы подтвердить заказ."
+      : "Мы сейчас закрыты — перезвоним на " + phone + " после 10:00 и подтвердим заказ."));
+  const t = el("div", "tg");
+  const b = el("div", "bubble");
+  b.append(el("div", "bot", "Админка Dolma · новый заказ"), document.createTextNode("Новый заказ №" + orderNo + " · " + hhmm + "\n" + text));
+  const acts = el("div", "acts"); acts.append(el("span", "", "Позвонить гостю"), el("span", "", "Принят ✓"));
+  t.append(el("div", "lbl", "Администратор видит в админке сайта"), b, el("div", "meta", hhmm), acts);
+  const back = el("button", "btn btn-ghost back", "Вернуться в меню"); back.type = "button";
+  back.onclick = () => { closeCart(); $("drawer").classList.remove("done"); res.replaceChildren(); };
+  res.append(g, t, back);
+  cart.clear(); renderControls(); renderCart();
+  $("drawer").classList.add("done");
+  $("drawer").scrollTop = 0;
+};
+
+// «Открыто / закрыто» по московскому времени (Ставрополь — МСК)
+let isOpen = true;
+(function () {
+  const parts = new Intl.DateTimeFormat("ru-RU", { timeZone: "Europe/Moscow", hour: "numeric", minute: "numeric", hour12: false }).formatToParts(new Date());
+  const h = +parts.find((p) => p.type === "hour").value;
+  const open = h >= 10 && h < 22;
+  isOpen = open;
+  $("closedNote").classList.toggle("hidden", open);
+  $("statusDot").classList.toggle("closed", !open);
+  $("statusText").textContent = open ? "Открыто · сегодня до 22:00" : "Сейчас закрыто · откроемся в 10:00";
+})();
+
+// подсветка вкладок меню при прокрутке
+const tabs = [...document.querySelectorAll("#tabs a")];
+const io = new IntersectionObserver((entries) => entries.forEach((e) => {
+  if (!e.isIntersecting) return;
+  tabs.forEach((a) => a.classList.toggle("on", a.getAttribute("href") === "#" + e.target.id));
+  document.querySelector("#tabs a.on")?.scrollIntoView({ inline: "center", block: "nearest" });
+}), { rootMargin: "-150px 0px -65% 0px" });
+document.querySelectorAll(".menu-cat").forEach((s) => io.observe(s));
+
+renderControls(); renderCart();
+</script>
+</body>
+</html>
